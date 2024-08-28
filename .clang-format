@@ -1,0 +1,10 @@
+BasedOnStyle: LLVM
+IndentWidth: 4
+
+---
+Language: Cpp
+IndentPPDirectives: BeforeHash
+PointerAlignment: Right
+AlignConsecutiveAssignments:
+  Enabled: true
+ColumnLimit: 80
