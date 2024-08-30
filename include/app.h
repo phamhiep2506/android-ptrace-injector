@@ -1,4 +1,5 @@
-#pragma once
+#ifndef APP_H
+#define APP_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,3 +11,5 @@ void launch_application(const char *package_name) {
             package_name);
     system(cmd);
 }
+
+#endif
