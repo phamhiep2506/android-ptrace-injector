@@ -10,7 +10,7 @@ set(CMAKE_TOOLCHAIN_FILE
 set(CMAKE_ANDROID_STANDALONE_TOOLCHAIN
     ${CMAKE_ANDROID_NDK}/toolchains/llvm/prebuilt/linux-x86_64)
 set(ANDROID_ABI arm64-v8a)
-set(ANDROID_PLATFORM 21)
+set(ANDROID_PLATFORM 29)
 
 project(Injector)
 
