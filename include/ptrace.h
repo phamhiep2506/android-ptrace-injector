@@ -6,23 +6,15 @@
 
 #define CPSR_T_MASK (1u << 5)
 
-#if defined(__arm__)
-    #define REGS_ARG_NUM 4
-#endif
+#define REGS_ARG_NUM 6
 
-#if defined(__aarch64__)
-    #define REGS_ARG_NUM 6
-#endif
-
-#if defined(__aarch64__)
-    #define pt_regs user_pt_regs
-    #define uregs regs
-    #define ARM_r0 regs[0]
-    #define ARM_lr regs[30]
-    #define ARM_sp sp
-    #define ARM_pc pc
-    #define ARM_cpsr pstate
-#endif
+#define pt_regs user_pt_regs
+#define uregs regs
+#define ARM_r0 regs[0]
+#define ARM_lr regs[30]
+#define ARM_sp sp
+#define ARM_pc pc
+#define ARM_cpsr pstate
 
 void ptrace_attach(pid_t pid);
 void ptrace_detach(pid_t pid);

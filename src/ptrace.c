@@ -29,7 +29,6 @@ void ptrace_detach(pid_t pid) {
 }
 
 void ptrace_get_regs(pid_t pid, struct pt_regs *regs) {
-#if defined(__aarch64__)
     struct iovec iov;
     iov.iov_base = regs;
     iov.iov_len  = sizeof(*regs);
@@ -37,17 +36,9 @@ void ptrace_get_regs(pid_t pid, struct pt_regs *regs) {
     if (ptrace(PTRACE_GETREGSET, pid, NT_PRSTATUS, &iov) == -1) {
         printf("[-] Ptrace get regs error %s\n", strerror(errno));
     }
-#endif
-
-#if defined(__arm__)
-    if (ptrace(PTRACE_GETREGS, pid, NULL, regs) == -1) {
-        printf("[-] Ptrace get regs error %s\n", strerror(errno));
-    }
-#endif
 }
 
 void ptrace_set_regs(pid_t pid, struct pt_regs *regs) {
-#if defined(__aarch64__)
     struct iovec iov;
     iov.iov_base = regs;
     iov.iov_len  = sizeof(*regs);
@@ -55,13 +46,6 @@ void ptrace_set_regs(pid_t pid, struct pt_regs *regs) {
     if (ptrace(PTRACE_SETREGSET, pid, NT_PRSTATUS, &iov) == -1) {
         printf("[-] Ptrace set regs error %s\n", strerror(errno));
     }
-#endif
-
-#if defined(__arm__)
-    if (ptrace(PTRACE_SETREGS, pid, NULL, regs) == -1) {
-        printf("[-] Ptrace set regs error %s\n", strerror(errno));
-    }
-#endif
 }
 
 void ptrace_cont(pid_t pid) {

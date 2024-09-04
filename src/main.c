@@ -1,3 +1,4 @@
+#include <bits/get_device_api_level_inlines.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -45,6 +46,12 @@ int main(int argc, char *argv[]) {
     // Check value arguments
     if (!package_name || !library_path) {
         printf("Missing required argument, see -h\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Check android version
+    if (get_android_version() < 10) {
+        printf("[-] Android devices below 10 are not supported\n");
         exit(EXIT_FAILURE);
     }
 

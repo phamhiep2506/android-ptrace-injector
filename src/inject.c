@@ -9,25 +9,8 @@
 #include "ptrace.h"
 #include "utils.h"
 
-const char *get_libc_path() {
-    if (get_android_version() < 10) {
-        return LIBC_PATH_OLD;
-    }
-
-    return LIBC_PATH;
-}
-
-const char *get_linker_path() {
-    if (get_android_version() < 10) {
-        return LINKER_PATH_OLD;
-    }
-
-    return LINKER_PATH;
-}
-
 long call_mmap(pid_t pid, size_t length) {
-    long func_addr =
-        get_remote_func_addr(pid, get_libc_path(), ((long)(void *)mmap));
+    long func_addr = get_remote_func_addr(pid, LIBC_PATH, ((long)(void *)mmap));
 
     printf("[+] Call mmap in process %d\n", pid);
 
@@ -44,7 +27,7 @@ long call_mmap(pid_t pid, size_t length) {
 
 long call_munmap(pid_t pid, long addr, size_t length) {
     long func_addr =
-        get_remote_func_addr(pid, get_libc_path(), ((long)(void *)munmap));
+        get_remote_func_addr(pid, LIBC_PATH, ((long)(void *)munmap));
 
     printf("[+] Call munmap address %p in process %d\n", (void *)addr, pid);
 
@@ -57,7 +40,7 @@ long call_munmap(pid_t pid, long addr, size_t length) {
 
 long call_dlopen(pid_t pid, const char *library_path) {
     long func_addr =
-        get_remote_func_addr(pid, get_linker_path(), ((long)(void *)dlopen));
+        get_remote_func_addr(pid, LINKER_PATH, ((long)(void *)dlopen));
 
     printf("[+] Call dlopen library %s in process %d\n", library_path, pid);
 
