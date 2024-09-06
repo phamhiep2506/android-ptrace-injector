@@ -3,13 +3,16 @@ cmake_minimum_required(VERSION 3.30.2)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 if(NOT CMAKE_ANDROID_NDK)
-  set(CMAKE_ANDROID_NDK /opt/sdk/ndk/27.0.12077973)
+  set(CMAKE_ANDROID_NDK /opt/sdk/ndk-bundle)
 endif()
 set(CMAKE_TOOLCHAIN_FILE
     ${CMAKE_ANDROID_NDK}/build/cmake/android.toolchain.cmake)
 set(CMAKE_ANDROID_STANDALONE_TOOLCHAIN
     ${CMAKE_ANDROID_NDK}/toolchains/llvm/prebuilt/linux-x86_64)
-set(ANDROID_ABI arm64-v8a)
+if(NOT CMAKE_ANDROID_ARCH_ABI)
+  set(CMAKE_ANDROID_ARCH_ABI arm64-v8a)
+endif()
+set(ANDROID_ABI ${CMAKE_ANDROID_ARCH_ABI})
 set(ANDROID_PLATFORM 29)
 
 project(Injector)
